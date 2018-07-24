@@ -1,6 +1,6 @@
 <script>
-    var CLIENT_ID = 'c297b2978439447999cbe02d37283904';
-    var REDIRECT_URI = 'https://github.com/jacobsokora/ubiquitous-tribble/spotify_redirect.html';
+    var CLIENT_ID = 'c297b2978439447999cbe02d37283904'; //this is the ID of my Spotify API project
+    var REDIRECT_URI = 'http://127.0.0.1/spotify_redirect.html'; //this is where Spotify will send the user after they authorize
     function getLoginURL(scopes) {
         return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
           '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
@@ -8,7 +8,7 @@
           '&response_type=token';
     }
     var url = getLoginURL([
-        'user-read-email'
+        'user-read-email playlist-modify-public' //this defines what permissions the app has
     ]);
     
     window.location.href = url;
