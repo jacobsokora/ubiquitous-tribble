@@ -1,0 +1,17 @@
+<script>
+    var CLIENT_ID = 'c297b2978439447999cbe02d37283904';
+    var REDIRECT_URI = 'https://github.com/jacobsokora/ubiquitous-tribble/spotify_redirect.html';
+    function getLoginURL(scopes) {
+        return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
+          '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+          '&scope=' + encodeURIComponent(scopes.join(' ')) +
+          '&response_type=token';
+    }
+    var url = getLoginURL([
+        'user-read-email'
+    ]);
+    
+    window.location.href = url;
+    
+
+</script>
