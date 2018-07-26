@@ -164,16 +164,22 @@ function search(ele) {
                 table = document.createElement("table");
                 for (var i = 0; i < response.tracks.items.length; i++) {
                     var row = document.createElement("tr");
-                    var data = document.createElement("td");
+                    var albumArt = document.createElement("td");
+                    var images = response.tracks.items.album.images;
+                    albumArt.innerHTML = "<img src=\"" + images[images.length - 1] + "\"";
+                    var nameData = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
                     for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
                         internal += response.tracks.items[i].artists[j].name + ", ";
                     }
                     internal = internal.substring(0, internal.length - 2);
                     var trackID = "spotify:track:" + response.tracks.items[i].id;
-                    internal += '<button onclick="addSongToQueue(\'' + trackID + '\')">Add</button>'
-                    data.innerHTML = internal;
-                    row.appendChild(data);
+                    nameData.innerHTML = internal;
+                    var button = document.createElement("td");
+                    button innerHTML = "<button onclick=\"addSongToQueue('" + trackID + "')\">Add</button>";
+                    row.appendChild(albumArt);
+                    row.appendChild(nameData);
+                    row.appendChild(button);
                     table.appendChild(row);
                 }
                 document.getElementById("results-container").appendChild(table);
