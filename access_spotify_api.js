@@ -3,10 +3,10 @@ var userId = '';
 var currTrackName = '';
 var currTrackNum = 0;
 var trackId = 'spotify:track:6rPO02ozF3bM7NnOV4h6s2'; //deeeespaaaacito
+var api_enabled = false; //this flag checks that the asynchronous call to grab the user ID has been completed
 
-getToken();
-populatePlaylists();
-
+accessToken = getToken();
+getUserID();
 //this bit grabs the access token out of the url, which returned from the authorization in spotify_auth
 function getToken()
 {
@@ -20,36 +20,11 @@ function getToken()
             params[temp[0]] = temp[1] 
         });
     }
-    accessToken = params.access_token;
-}
-
-
-//kicks off the series of API calls needed to enqueue a song
-//first AJAX call checks if a song is currently playing and if so, grabs the song's position in playlist then starts the rest of the API calls
-function addSongToQueue(track_id)
-{
-    $.ajax({
-        url: 'https://api.spotify.com/v1/me/player/currently-playing',
-        headers: {
-           'Authorization': 'Bearer ' + accessToken
-        },
-        success: function(response) {
-            if(response != null) //if song found to be playing
-            {
-                currTrackName = response.item["name"];
-            }
-            
-            getUserID(track_id);
-        },
-        error: function(xhr, status, error) 
-        {
-            alert(xhr.responseText);
-        }
-    });
+    return params.access_token;
 }
 
 //grabs authorized user's ID
-function getUserID(track_id)
+function getUserID()
 {
     $.ajax({
        url: 'https://api.spotify.com/v1/me',
@@ -57,11 +32,39 @@ function getUserID(track_id)
            'Authorization': 'Bearer ' + accessToken
        },
        success: function(response) {
-            userId = response["id"];            
-            getPlaylist(userId, track_id);
-            
+            api_enabled = true; //allow addSongToQueue to be used
+            populatePlaylists(response["id"]); //I dislike putting this function call here but can't figure out how to avoid it
+            userId = response["id"];  
        }
     });
+}
+
+
+//kicks off the series of API calls needed to enqueue a song
+//first AJAX call checks if a song is currently playing and if so, grabs the song's position in playlist then starts the rest of the API calls
+function addSongToQueue(track_id)
+{
+    if(api_enabled == true)
+    {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me/player/currently-playing',
+            headers: {
+               'Authorization': 'Bearer ' + accessToken
+            },
+            success: function(response) {
+                if(response != null) //if song found to be playing
+                {
+                    currTrackName = response.item["name"];
+                }
+                
+                getPlaylist(userId, track_id);
+            },
+            error: function(xhr, status, error) 
+            {
+                alert(xhr.responseText);
+            }
+        });
+    }
 }
 
 //grabs the Test Playlist's ID
@@ -78,7 +81,7 @@ function getPlaylist(user_id, track_id)
        success: function(response) {
             for(playlist in response.items)
             {
-                if(response.items[playlist]["name"] == "Test Playlist")
+                if(response.items[playlist]["name"] == $("#playlist-selection").val())
                 {
                     playlistId = response.items[playlist]["id"];
                 }
@@ -92,7 +95,7 @@ function getPlaylist(user_id, track_id)
             }
             else
             {
-                alert("No public playlist called Test PLaylist found. Please make sure the playlist is set to public.");
+                alert("Playlist could not be found.");
             }
        }
     });
@@ -163,9 +166,30 @@ function search(ele) {
     }
 }
 
-function populatePlaylists()
+function populatePlaylists(user_id)
 {
-    /*var opt = "<option value=\"test\">Test</option>";
-    $("#playlist-selection").append(opt);
-    $("h1").append("TEST");*/
+    $(document).ready(function() {
+        $.ajax({
+           url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+           headers: {
+               'Authorization': 'Bearer ' + accessToken
+           },
+           success: function(response) {
+                var i = 0;
+                for(playlist in response.items)
+                {   
+                    if(response.items[playlist]["public"] == true)
+                    {
+                        var playlistName = response.items[playlist]["name"];
+                        $('#playlist-selection').append($('<option></option>').val(playlistName).html(playlistName));
+                    }
+                    i++;
+                }
+                if(i == 0)
+                {
+                    alert("No public playlists found for this user. Please add a public playlist to your Spotify account to make a party playlist.");   
+                }
+           }
+        });
+    });
 }
