@@ -165,7 +165,7 @@ function search(ele) {
                 for (var i = 0; i < response.tracks.items.length; i++) {
                     var row = document.createElement("tr");
                     var albumArt = document.createElement("td");
-                    var images = response.tracks.items.album.images;
+                    var images = response.tracks.items[i].album.images;
                     albumArt.innerHTML = "<img src=\"" + images[images.length - 1] + "\"";
                     var nameData = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
@@ -176,7 +176,7 @@ function search(ele) {
                     var trackID = "spotify:track:" + response.tracks.items[i].id;
                     nameData.innerHTML = internal;
                     var button = document.createElement("td");
-                    button innerHTML = "<button onclick=\"addSongToQueue('" + trackID + "')\">Add</button>";
+                    button.innerHTML = "<button onclick=\"addSongToQueue('" + trackID + "')\">Add</button>";
                     row.appendChild(albumArt);
                     row.appendChild(nameData);
                     row.appendChild(button);
