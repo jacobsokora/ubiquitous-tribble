@@ -152,7 +152,7 @@ function search(ele) {
     if(event.key === 'Enter') {
         var query = ele.value;
         $.ajax({
-           url: 'https://api.spotify.com/v1/search?type=track&limit=1&query=' + query,
+           url: 'https://api.spotify.com/v1/search?type=track&query=' + query,
            headers: {
                'Authorization': 'Bearer ' + accessToken
            },
