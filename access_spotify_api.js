@@ -158,7 +158,9 @@ function search(ele) {
            },
            success: function(response) {
                 var table = document.getElementById("searchResults");
-                document.removeChild(table);
+                if (table != null) {
+                    table.parent.removeChild(table);
+                }
                 table = document.createElement("table");
                 for (var i = 0; i < response.tracks.items.length; i++) {
                     var row = document.createElement("tr");
