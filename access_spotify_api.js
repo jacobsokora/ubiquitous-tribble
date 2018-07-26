@@ -157,11 +157,11 @@ function search(ele) {
                'Authorization': 'Bearer ' + accessToken
            },
            success: function(response) {
-                var table = document.getElementById("searchResults");
-                if (table != null) {
-                    table.parent.removeChild(table);
+                var resultsContainer = document.getElementById("results-container");
+                while (resultsContainer.firstChild) {
+                    resultsContainer.removeChild(resultsContainer.firstChild);
                 }
-                table = document.createElement("table");
+                var table = document.createElement("table");
                 for (var i = 0; i < response.tracks.items.length; i++) {
                     var row = document.createElement("tr");
                     var albumArt = document.createElement("td");
