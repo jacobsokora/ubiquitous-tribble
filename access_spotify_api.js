@@ -170,7 +170,8 @@ function search(ele) {
                         internal += response.tracks.items[i].artists[j].name + ", ";
                     }
                     internal = internal.substring(0, internal.length - 2);
-                    internal += '<button onclick="addSongToQueue(' + response.tracks.items[i].id + ')">Add</button>'
+                    var trackID = "spotify:track:" + response.tracks.items[i].id;
+                    internal += '<button onclick="addSongToQueue(\'' + trackID + '\')">Add</button>'
                     data.innerHTML = internal;
                     row.appendChild(data);
                     table.appendChild(row);
