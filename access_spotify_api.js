@@ -157,10 +157,27 @@ function search(ele) {
                'Authorization': 'Bearer ' + accessToken
            },
            success: function(response) {
-                trackID = response.tracks.items[0]["id"];
-                alert("Attempting to add \"" + response.tracks.items[0]["name"] + "\" to queue.");
-                var rebuiltID = "spotify:track:" + trackID;
-                addSongToQueue(rebuiltID);
+                var table = document.getElementById("searchResults");
+                document.removeChild(table);
+                table = document.createElement("table");
+                for (var i = 0; i < response.tracks.items.length; i++) {
+                    var row = document.createElement("tr");
+                    var data = document.createElement("td");
+                    var internal = response.tracks.items[i].name + " - ";
+                    for (var j = 0; j < response.tracks.items[i].artists.length) {
+                        internal += response.tracks.items[i].artists[j].name + ", ";
+                    }
+                    internal = internal.substring(0, internal.length - 2);
+                    internal += '<button onclick="addSongToQueue(' + response.tracks.items[i].id + ')">Add</button>'
+                    data.innerHTML = internal;
+                    row.appendChild(data);
+                    table.appendChild(row);
+                }
+                document.appendChild(table);
+                // trackID = response.tracks.items[0]["id"];
+                // alert("Attempting to add \"" + response.tracks.items[0]["name"] + "\" to queue.");
+                // var rebuiltID = "spotify:track:" + trackID;
+                // addSongToQueue(rebuiltID);
            }
         });
     }
