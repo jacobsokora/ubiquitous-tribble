@@ -5,7 +5,10 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous">
 </script>
-
+<head>
+  <title>Spotify Party Queue</title>
+  <link rel="stylesheet" type="text/css" href="/style.css"/>
+</head>
 <script>
     var accessToken = '';
     var userId = '';
@@ -126,7 +129,6 @@
             success: function(response) {
                 
                 currTrackNum = response.items.findIndex(obj => obj.track.name==currTrackName);
-
                 alert("Current track is at position " + currTrackNum + ".");
                 addSong(user_id, playlist_id, track_id, currTrackNum+1); //add song after current song
             },
@@ -158,3 +160,32 @@
     
     
 </script>
+<body>
+  <h1>Spotify Party Queue</h1>
+  <div class="search-container">
+    <div class="search-icon-btn">
+      <i class="fa fa-search"></i>
+    </div>
+    <div class="search-input">         
+      <input type="text" class="search-bar" class = id= onkeypress="search(this)" searchInput" placeholder="Search..."/>
+<script>                                                                                                          
+function search(ele) {
+    if(event.key === 'Enter') {
+        var query = ele.value;
+        $.ajax({
+           url: 'https://api.spotify.com/v1/search?type=track&limit=1&query=' + query,
+           headers: {
+               'Authorization': 'Bearer ' + accessToken
+           },
+           success: function(response) {
+                trackID = response.tracks.items[0]["id"];
+                alert(trackID);
+                                    
+           }
+        });
+    }
+}
+</script>
+    </div>
+  </div
+</body>
