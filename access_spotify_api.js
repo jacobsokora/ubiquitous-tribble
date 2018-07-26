@@ -165,8 +165,10 @@ function search(ele) {
                 for (var i = 0; i < response.tracks.items.length; i++) {
                     var row = document.createElement("tr");
                     var albumArt = document.createElement("td");
+                    var albumImage = document.createElement("img");
                     var images = response.tracks.items[i].album.images;
-                    albumArt.innerHTML = "<img src=\"" + images[images.length - 1].url + "\"";
+                    albumImage.src = images[images.length - 1].url;
+                    albumArt.appendChild(albumImage);
                     var nameData = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
                     for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
