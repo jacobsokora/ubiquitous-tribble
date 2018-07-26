@@ -164,7 +164,7 @@ function search(ele) {
                     var row = document.createElement("tr");
                     var data = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
-                    for (var j = 0; j < response.tracks.items[i].artists.length) {
+                    for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
                         internal += response.tracks.items[i].artists[j].name + ", ";
                     }
                     internal = internal.substring(0, internal.length - 2);
