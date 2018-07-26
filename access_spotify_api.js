@@ -175,7 +175,7 @@ function search(ele) {
                     row.appendChild(data);
                     table.appendChild(row);
                 }
-                document.appendChild(table);
+                document.getElementById("results-container").appendChild(table);
                 // trackID = response.tracks.items[0]["id"];
                 // alert("Attempting to add \"" + response.tracks.items[0]["name"] + "\" to queue.");
                 // var rebuiltID = "spotify:track:" + trackID;
