@@ -166,7 +166,7 @@ function search(ele) {
                     var row = document.createElement("tr");
                     var albumArt = document.createElement("td");
                     var images = response.tracks.items[i].album.images;
-                    albumArt.innerHTML = "<img src=\"" + images[images.length - 1] + "\"";
+                    albumArt.innerHTML = "<img src=\"" + images[images.length - 1].url + "\"";
                     var nameData = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
                     for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
