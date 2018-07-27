@@ -48,9 +48,9 @@ function makePartyPlaylist() {
             'Authorization': 'Bearer ' + accessToken,
             'Content-Type': 'application/json'
         },
-        data: {
-            "name": 'Jukebox'
-        },
+        data: JSON.stringify({
+            name: 'Jukebox'
+        }),
         success: function(response) {
             partyPlaylist = response["id"];
         }
