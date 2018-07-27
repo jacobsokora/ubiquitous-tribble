@@ -66,27 +66,33 @@ function addSongToPartyPlaylist(track_id) {
             },
             success: function(response) {
                 //play if not already playing
-                playSomeMusic();
+                playSomeMusic(track_id);
             }
         });
     }
 }
 
-function playSomeMusic() {
+function playSomeMusic(added_track) {
     if (api_enabled) {
         $.ajax({
-            url: 'https://api.spotify.com/v1/me/player/devices',
+            url: 'https://api.spotify.com/v1/me/player',
             headers: {
                'Authorization': 'Bearer ' + accessToken
             },
             success: function(response) {
-                if (response.devices.length != 0) {
+                if (!response.is_playing) {
                     $.ajax({
                         type: 'PUT',
                         url: 'https://api.spotify.com/v1/me/player/play',
                         headers: {
                             'Authorization': 'Bearer ' + accessToken
-                        }
+                        },
+                        data: JSON.stringify({
+                            context_uri: 'spotify:playlist:' + partyPlaylist,
+                            offset: {
+                                uri: added_track
+                            }
+                        })
                     });
                 }
             }
