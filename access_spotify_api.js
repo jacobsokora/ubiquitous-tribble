@@ -7,7 +7,6 @@ var api_enabled = false; //this flag checks that the asynchronous call to grab t
 
 accessToken = getToken();
 getUserID();
-makePlaylist(userId);
 //this bit grabs the access token out of the url, which returned from the authorization in spotify_auth
 function getToken()
 {
@@ -221,17 +220,4 @@ function populatePlaylists(user_id)
            }
         });
     });
-}
-function makePlaylist(user_id){
-     $.post({
-       url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists' + '/name="PartyPlaylist"',
-       headers: {
-           'Authorization': 'Bearer ' + accessToken,
-           'Content-Type': 'application/json'
-       },
-       success: function(response) {
-         alert("New PartyPlaylist created");
-       }
-    });
-    
 }
