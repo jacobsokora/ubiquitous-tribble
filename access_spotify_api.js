@@ -8,7 +8,6 @@ var partyPlaylist = '';
 
 accessToken = getToken();
 getUserID();
-makePartyPlaylist();
 //this bit grabs the access token out of the url, which returned from the authorization in spotify_auth
 function getToken()
 {
@@ -36,7 +35,8 @@ function getUserID()
        success: function(response) {
             api_enabled = true; //allow addSongToQueue to be used
             // populatePlaylists(response["id"]); //I dislike putting this function call here but can't figure out how to avoid it
-            userId = response["id"];  
+            userId = response["id"]; 
+            makePartyPlaylist();
        }
     });
 }
@@ -48,7 +48,7 @@ function makePartyPlaylist() {
             'Authorization': 'Bearer ' + accessToken
         },
         data: {
-            name: 'Jukebox'
+            "name": 'Jukebox'
         },
         success: function(response) {
             partyPlaylist = response["id"];
@@ -57,7 +57,7 @@ function makePartyPlaylist() {
 }
 
 function addSongToPartyPlaylist(track_id) {
-    if (api_enabled) {
+    if (api_enabled && partyPlaylist.length != 0) {
         $.post({
             url: 'https://api.spotify.com/v1/users/' + userId + '/playlists/' + partyPlaylist + '/tracks?uris=' + track_id,
             headers: {
