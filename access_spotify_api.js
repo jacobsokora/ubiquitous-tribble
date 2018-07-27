@@ -7,7 +7,7 @@ var api_enabled = false; //this flag checks that the asynchronous call to grab t
 
 accessToken = getToken();
 getUserID();
-makePlaylist();
+makePlaylist(userId);
 //this bit grabs the access token out of the url, which returned from the authorization in spotify_auth
 function getToken()
 {
