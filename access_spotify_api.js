@@ -268,18 +268,23 @@ function search(ele) {
     }
 }
 function getQueueTracks() {
-        $.ajax({
+      $.ajax({
            url: 'https://api.spotify.com/v1/users/' + userId + '/playlists/' + partyPlaylist + '/tracks',
            headers: {
                'Authorization': 'Bearer ' + accessToken
            },
            success: function(response) {
+               var list = document.getElementById('queue-list');
                for (var i = 0; i < response.items.length; i++) {
-                   console.log(response.items[i].track["name"]);
+                   var song = response.items[i].track["name"];
+
+                    var entry = document.createElement('li');
+                    entry.appendChild(document.createTextNode(song));
+                    list.appendChild(entry);
                }
            }
         });
-}
+    }
 
 // function populatePlaylists(user_id)
 // {
