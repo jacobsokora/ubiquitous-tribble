@@ -258,3 +258,23 @@ function populatePlaylists(user_id)
         });
     });
 }
+function makePlaylist(user_id)
+{
+    //POST request that makes playlist titled "PartyPlaylist"
+    $.post({
+        url: 'https://api.spotify.com/v1/users/' + user_id + '/playlists',
+        headers: {
+            'Authorization': 'Bearer ' + accessToken
+        },
+        body: {
+            name: "PartyPlaylist"
+        },
+        success: function(response) {
+            alert("New PartyPlaylist created");
+        },
+        //error code if POST fails
+        error: function(xhr, status, error) {
+            alert(xhr.responseText);
+        }
+    });
+}
