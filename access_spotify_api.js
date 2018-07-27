@@ -161,34 +161,71 @@ function search(ele) {
                 while (resultsContainer.firstChild) {
                     resultsContainer.removeChild(resultsContainer.firstChild);
                 }
-                var table = document.createElement("table");
+                
+                        //previous song card setup for reference
+                        /*
+                        var table = document.createElement("table");
+                        for (var i = 0; i < response.tracks.items.length; i++) {
+                            var row = document.createElement("tr");
+                            var albumArt = document.createElement("td");
+                            var albumImage = document.createElement("img");
+                            var images = response.tracks.items[i].album.images;
+                            albumImage.src = images[images.length - 1].url;
+                            albumArt.appendChild(albumImage);
+                            var nameData = document.createElement("td");
+                            var internal = response.tracks.items[i].name + " - ";
+                            for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
+                                internal += response.tracks.items[i].artists[j].name + ", ";
+                            }
+                            internal = internal.substring(0, internal.length - 2);
+                            var trackID = "spotify:track:" + response.tracks.items[i].id;
+                            nameData.innerHTML = internal;
+                            var button = document.createElement("td");
+                            button.innerHTML = "<button onclick=\"addSongToQueue('" + trackID + "')\">Add</button>";
+                            row.appendChild(albumArt);
+                            row.appendChild(nameData);
+                            row.appendChild(button);
+                            table.appendChild(row);
+                        }
+                        */
+                
                 for (var i = 0; i < response.tracks.items.length; i++) {
-                    var row = document.createElement("tr");
-                    var albumArt = document.createElement("td");
-                    var albumImage = document.createElement("img");
+                    var trackID = "spotify:track:" + response.tracks.items[i].id;
                     var images = response.tracks.items[i].album.images;
-                    albumImage.src = images[images.length - 1].url;
-                    albumArt.appendChild(albumImage);
-                    var nameData = document.createElement("td");
                     var internal = response.tracks.items[i].name + " - ";
                     for (var j = 0; j < response.tracks.items[i].artists.length; j++) {
                         internal += response.tracks.items[i].artists[j].name + ", ";
                     }
                     internal = internal.substring(0, internal.length - 2);
-                    var trackID = "spotify:track:" + response.tracks.items[i].id;
-                    nameData.innerHTML = internal;
-                    var button = document.createElement("td");
-                    button.innerHTML = "<button onclick=\"addSongToQueue('" + trackID + "')\">Add</button>";
-                    row.appendChild(albumArt);
-                    row.appendChild(nameData);
-                    row.appendChild(button);
-                    table.appendChild(row);
+                    
+                    //this is the html to add a Bulma Card with retrieved info. Text is truncated to 41 char because I don't know how to CSS.
+                    var card = `<div class="box has-background-grey-light is-block" style="margin:0;">
+                            <article class="media">
+                              <figure class="media-left">
+                                <p class="image is-64x64">
+                                  <img src="` + images[images.length - 1].url + `">
+                                </p>
+                              </figure>
+                              <div class="media-content">
+                                <div class="level">
+                                    <div class="content level-left ellipsis">
+                                      <p>
+                                        <strong>` + response.tracks.items[i].name.substring(0,41) + `</strong>
+                                        <br>
+                                        ` + response.tracks.items[i].artists[0].name.substring(0,41) + `
+                                      </p>
+                                    </div>
+                                    <div class="level-right">
+                                      <a class="button is-success" onclick="addSongToQueue('` + trackID + `')">Add</a>
+                                    </div>
+                                </div>
+                              </div>
+                              
+                            </article>
+                        </div>
+                    `;
+                    $("#results-container").append(card);
                 }
-                document.getElementById("results-container").appendChild(table);
-                // trackID = response.tracks.items[0]["id"];
-                // alert("Attempting to add \"" + response.tracks.items[0]["name"] + "\" to queue.");
-                // var rebuiltID = "spotify:track:" + trackID;
-                // addSongToQueue(rebuiltID);
            }
         });
     }

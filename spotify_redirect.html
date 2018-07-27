@@ -9,27 +9,36 @@
             crossorigin="anonymous"></script>
         <script type="text/javascript" src="access_spotify_api.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     </head>
-
     <body>
-        <h1>Spotify Party Queue</h1>
+        <section class="hero is-fullheight has-background-grey-lighter is-vcentered">
+                
+                <div class="hero-body">
+                    <div class="container has-text-centered">
+                        <div class="column is-6 is-offset-3">
+                            <h1 class="title">
+                                Spotify Party Queue
+                            </h1>
+                            <h2 class="subtitle">
+                                Queue up songs for your party playlist.
+                            </h2>
+                            <div class="field">
+                              <div class="control has-text-centered">
+                                <input id="search-bar" class="input is-success is-focused is-rounded is-medium has-background-grey-light" type="text" onkeypress="search(this)" placeholder="Search for a song...">
+                              </div>
+                            </div>
+                            <div id="results-container">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <form>
-            <select id="playlist-selection" name="cars">
-            </select>
-        </form>
-
-        <br>
-        
-        <div class="search-container">
-            <div class="search-icon-btn">
-                <i class="fa fa-search"></i>
-            </div>
-            <div class="search-input">         
-                <input type="text" class="search-bar" class = id= onkeypress="search(this)" searchInput" placeholder="Search..."/>
-            </div>
-        </div>
-        <div id="results-container">
-        </div>
+        </section>
+        <script async type="text/javascript" src="../js/bulma.js"></script>
     </body>
 </html>

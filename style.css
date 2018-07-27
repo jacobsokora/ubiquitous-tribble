@@ -2,6 +2,20 @@ html,
 body {
   font-family: 'Arial', sans-serif;
   font-size: 16px;
+  min-height:100%;
+  margin:0;
+}
+
+input {
+  text-align:center;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 /* border-box */
@@ -28,6 +42,10 @@ body {
   width: 51px;
 }
 
+#search-bar{
+   
+}
+
 /* search icon button */
 .search-icon-btn {
   background-color: aquamarine;
@@ -35,8 +53,8 @@ body {
   display: table-cell;
   height: 50px;
   position: relative;
-  text-align: center;
-  vertical-align: middle;
+  /*text-align: center;
+  vertical-align: middle;*/
   width: 50px;
   z-index: 2;
 }
