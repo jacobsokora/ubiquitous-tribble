@@ -88,7 +88,7 @@ function playSomeMusic(added_track) {
                             'Authorization': 'Bearer ' + accessToken
                         },
                         data: JSON.stringify({
-                            context_uri: 'spotify:playlist:' + partyPlaylist,
+                            context_uri: 'spotify:user:' + userId + ':playlist:' + partyPlaylist,
                             offset: {
                                 uri: added_track
                             }
