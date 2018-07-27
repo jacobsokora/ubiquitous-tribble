@@ -42,17 +42,31 @@ function getUserID()
 }
 
 function makePartyPlaylist() {
-    $.post({
-        url: 'https://api.spotify.com/v1/users/' + userId + '/playlists',
+    $.ajax({
+        url: 'https://api.spotify.com/v1/me/playlists?limit=50',
         headers: {
-            'Authorization': 'Bearer ' + accessToken,
-            'Content-Type': 'application/json'
+            'Authorization': 'Bearer ' + accessToken
         },
-        data: JSON.stringify({
-            name: 'Jukebox'
-        }),
         success: function(response) {
-            partyPlaylist = response["id"];
+            for (let playlist of response.items) {
+                if (playlist.name == "Spotify Party Queue") {
+                    partyPlaylist = playlist.id;
+                    return;
+                }
+            }
+            $.post({
+                url: 'https://api.spotify.com/v1/users/' + userId + '/playlists',
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken,
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                    name: 'Spotify Party Queue'
+                }),
+                success: function(response) {
+                    partyPlaylist = response["id"];
+                }
+            });
         }
     });
 }
