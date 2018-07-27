@@ -45,7 +45,8 @@ function makePartyPlaylist() {
     $.post({
         url: 'https://api.spotify.com/v1/users/' + userId + '/playlists',
         headers: {
-            'Authorization': 'Bearer ' + accessToken
+            'Authorization': 'Bearer ' + accessToken,
+            'Content-Type': 'application/json'
         },
         data: {
             "name": 'Jukebox'
