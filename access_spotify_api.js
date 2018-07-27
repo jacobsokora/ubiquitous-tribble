@@ -267,6 +267,19 @@ function search(ele) {
         });
     }
 }
+function getQueueTracks() {
+        $.ajax({
+           url: 'https://api.spotify.com/v1/users/' + userId + '/playlists/' + partyPlaylist + '/tracks',
+           headers: {
+               'Authorization': 'Bearer ' + accessToken
+           },
+           success: function(response) {
+               for (var i = 0; i < response.items.length; i++) {
+                   console.log(response.items[i].track["name"]);
+               }
+           }
+        });
+}
 
 // function populatePlaylists(user_id)
 // {
