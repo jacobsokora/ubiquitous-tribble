@@ -223,8 +223,7 @@ function playSomeMusic(added_track) {
 // }
 
 function search(ele) {
-    if(event.key === 'Enter') {
-        var query = ele.value;
+    var query = ele.value;
         $.ajax({
            url: 'https://api.spotify.com/v1/search?type=track&query=' + query,
            headers: {
@@ -265,7 +264,6 @@ function search(ele) {
                 // addSongToQueue(rebuiltID);
            }
         });
-    }
 }
 
 function getQueueTracks() {
