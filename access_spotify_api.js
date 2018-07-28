@@ -224,6 +224,13 @@ function playSomeMusic(added_track) {
 
 function search(ele) {
     var query = ele.value;
+    if (query.length == 0) {
+        var resultsContainer = document.getElementById("results-container");
+        while (resultsContainer.firstChild) {
+            resultsContainer.removeChild(resultsContainer.firstChild);
+        }
+        return;
+    }
         $.ajax({
            url: 'https://api.spotify.com/v1/search?type=track&query=' + query,
            headers: {
