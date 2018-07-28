@@ -267,7 +267,7 @@ function search(ele) {
         });
     }
 }
-<<<<<<< HEAD
+
 function getQueueTracks() {
       $.ajax({
            url: 'https://api.spotify.com/v1/users/' + userId + '/playlists/' + partyPlaylist + '/tracks',
@@ -284,10 +284,8 @@ function getQueueTracks() {
                     list.appendChild(entry);
                }
            }
-        });
-    }
-=======
->>>>>>> parent of 099180e... add function to get tracks in playlist
+     });
+}
 
 // function populatePlaylists(user_id)
 // {
