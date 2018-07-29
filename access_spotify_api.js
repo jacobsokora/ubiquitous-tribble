@@ -36,6 +36,7 @@ function getUserID()
             api_enabled = true; //allow addSongToQueue to be used
             // populatePlaylists(response["id"]); //I dislike putting this function call here but can't figure out how to avoid it
             userId = response["id"]; 
+            
             makePartyPlaylist();
        }
     });
@@ -51,6 +52,12 @@ function makePartyPlaylist() {
             for (let playlist of response.items) {
                 if (playlist.name == "Spotify Party Queue") {
                     partyPlaylist = playlist.id;
+                    
+                    $.getScript('notify.min.js', function()
+                    {
+                        $.notify("Playlist 'Spotify Party Queue' has been found in user's playlists.", "success");
+                    });
+                    
                     return;
                 }
             }
@@ -65,6 +72,11 @@ function makePartyPlaylist() {
                 }),
                 success: function(response) {
                     partyPlaylist = response["id"];
+                    //notify user about playlist creation
+                    $.getScript('notify.min.js', function()
+                    {
+                        $.notify("Playlist 'Spotify Party Queue' has been successfully added.", "success");
+                    });
                 }
             });
         }
@@ -79,6 +91,13 @@ function addSongToPartyPlaylist(track_id) {
                'Authorization': 'Bearer ' + accessToken
             },
             success: function(response) {
+                
+                //notify user about song being added.
+                $.getScript('notify.min.js', function()
+                {
+                    $.notify("Song has been added to the queue.", "success");
+                });
+                
                 //play if not already playing
                 playSomeMusic(track_id);
             }
