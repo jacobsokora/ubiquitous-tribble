@@ -7,5 +7,6 @@ The app adds a "Spotify Party Queue" playlist to your account, and the user can 
 
 Try it out: https://jacobsokora.github.io/ubiquitous-tribble/
 
+Video demonstration: https://youtu.be/mxiblIZpjQ8
 
 This project uses the Bulma CSS framework and Notify.js.
